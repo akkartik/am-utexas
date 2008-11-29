@@ -1,43 +1,15 @@
-:- public am/0.
-?-no_style_check(all).
+module(am, [am/0]).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-	
-:-compile([amutilities,utilities]).
-:-consult([descriptions,concepts,definitions]).
+compile([amutilities,utilities]).
+consult([descriptions,concepts,definitions]).
 load_am_files:-descr(H,_,_), strcat('h/',H,Hfile),consult(Hfile),fail.
 load_am_files.
-:-load_am_files.
-
-:- dynamic watch_mode_on/0.
-watch_mode_on.
 
 am :-
-   write('
-				AAAAA MMMMM      MMMMM
-			     AAAAAAAA MMMMMM    MMMMMMMM
-			  AAAAA  AAAA MMMMMMM  MMMM MMMMMM
-		       AAAAA     AAAA MMMM  MMMMM      MMMMM
-		    AAAAAAAAAAAAAAAAA MMMM   MMM         MMMMM
-	         AAAAAAAAAAAAAAAAAAAA MMMM    M            MMMMM
-	      AAAAA              AAAA MMMM                   MMMMM
-	   AAAAA                 AAAA MMMM                     MMMMM'),nl,
-write('
-			    Created by Doug Lenat
-		       Prolog Version by Bruce Porter
-	   Ray Bareiss, Adam Farquhar, M.V. LaPolla, Kim Matocha,
-		  Ken Murray, Martin Purvis, and Todd Stock
-   '),
    init_am, 
-   cont_am.
-
-cont_am:-
    repeat,
      am_loop,
    fail.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 init_am :- 
         abolish(agenda,1),
@@ -182,7 +154,7 @@ apply_heuristic(_,_).
 
 % This really goes in amutilities.pl but it must be interpreted so it's here
 print_put_trace(C,S,V):-
-   ancestors([G|_]),				% find out who's calling put/3,
+   ancestors([G|_]), % find out who's calling put/3,
    G=..[H|_],
    write(['   Adding',V,to,the,S,slot,of,C]), nl, % show change,
    !, fail.
