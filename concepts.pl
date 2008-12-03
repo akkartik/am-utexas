@@ -6,9 +6,7 @@ were not here before and have done my best at adding their defn's.
 -mv LaPolla (marcos) 
 */
 
-:- public frame/3.
-:- dynamic frame/3.
-?-no_style_check(all).
+:- dynamic(frame/3).
 
 frame(anything,[name],[anything]).
 frame(anything,[spec],[any_concept,non_concept]).

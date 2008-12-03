@@ -1,9 +1,17 @@
-module(am, [am/0]).
+:- public([am/0]).
 
-compile([amutilities,utilities]).
-consult([descriptions,concepts,definitions]).
-load_am_files:-descr(H,_,_), strcat('h/',H,Hfile),consult(Hfile),fail.
-load_am_files.
+load_am_files :-
+  [common],
+  [utilities],
+  [clock],
+  [agenda],
+  [descriptions],
+  [concepts],
+  [definitions],
+  descr(H,_,_),
+  strcat('h/',H,Hfile),
+  consult(Hfile),
+  fail.
 
 am :-
    init_am, 
@@ -12,23 +20,24 @@ am :-
    fail.
 
 init_am :- 
-        abolish(agenda,1),
-        abolish(time,1),
-        abolish(history,1),
-        abolish(do_threshold,1),
-        abolish(seed,1),
-        abolish(auto,1),
-        abolish(cycle,1),
-        assert(cycle(1)),
+  load_am_files,
+        abolish(agenda/1),
+        abolish(time/1),
+        abolish(history/1),
+        abolish(do_threshold/1),
+        abolish(seed/1),
+        abolish(auto/1),
+        abolish(cycle/1),
+        assertz(cycle(1)),
 % unless am is broken you shouldn't need to reload the concepts every time
-%        abolish(frame,3),
+%        abolish(frame/3),
 %        [concepts], 
-        assert(auto(no)),
-        assert(seed(13)),
-        assert(time(0)),
-        assert(history([])),
-        assert(do_threshold(500)),
-        assert(agenda([[fillin,set, [examples],310,[['some reason',10]]],
+        assertz(auto(no)),
+        assertz(seed(13)),
+        assertz(time(0)),
+        assertz(history([])),
+        assertz(do_threshold(500)),
+        assertz(agenda([[fillin,set, [examples],310,[['some reason',10]]],
                        [suggest,set,[examples],300,[['why not',10]]],
                        [fillin,set, [genl],    300,[['whynot',10]]],
                        [fillin,set, [spec],    300,[['reason',10]]],
@@ -36,7 +45,7 @@ init_am :-
 
 
 am_loop:-
-   retract(cycle(Cycle)),NextCycle is Cycle + 1, assert(cycle(NextCycle)),
+   retract(cycle(Cycle)),NextCycle is Cycle + 1, assertz(cycle(NextCycle)),
    amformat('~n---- Cycle ~a:  ', [Cycle]),
    user_selects_task(Task),
    Task = [Op,Con,Slot,Worth,_],
@@ -113,7 +122,7 @@ suggest_task(T) :-  best_worth(W),W1 is W + 500,
  */
 compute_time(Worth) :- T is Worth * 3 / 2,
         retract(time(_)),
-        assert(time(T)).
+        assertz(time(T)).
         
 collect_heuristics(Con,[examples,typ],Op,H) :- 
         collect_heuristics(Con,[examples],Op,H).
@@ -137,7 +146,7 @@ execute_heuristics(Con,[H|R]) :-
         clock(Start,Elapsed_time),
         retract(time(T)),
         T1 is T - Elapsed_time,
-        assert(time(T1)),!,
+        assertz(time(T1)),!,
         execute_heuristics(Con,R).
 execute_heuristics(_,[]).
 
@@ -152,9 +161,9 @@ execute_heuristics(_,[]).
 apply_heuristic(H,A):- apply(H,A), !.
 apply_heuristic(_,_).
 
-% This really goes in amutilities.pl but it must be interpreted so it's here
-print_put_trace(C,S,V):-
-   ancestors([G|_]), % find out who's calling put/3,
-   G=..[H|_],
-   write(['   Adding',V,to,the,S,slot,of,C]), nl, % show change,
-   !, fail.
+%? % This really goes in amutilities.pl but it must be interpreted so it's here
+%? print_put_trace(C,S,V):-
+%?    ancestors([G|_]), % find out who's calling put/3,
+%?    G=..[H|_],
+%?    write(['   Adding',V,to,the,S,slot,of,C]), nl, % show change,
+%?    !, fail.

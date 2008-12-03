@@ -1,4 +1,4 @@
-:-public h183/1.
+:-public(h183/1).
 
 /* h183 checks to see if f o g (or actually ANY concept) might be the same as
    another concept by comparing their examples. Neighboring concepts are

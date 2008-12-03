@@ -1,5 +1,4 @@
-:-public h174/2.
-?-no_style_check(all).
+:-public(h174/2).
 
 /* h174 creates a new operation by composing two existing operations.In clausal
    form, the composition is expressed as fog(a,b,c,y):-g(a,b,c,x),f(x,y) which
@@ -264,15 +263,13 @@ check_with_user2(F,G,Newname,Alg,Newname2):-
 	      assert(gensymed_concepts(Newname,Alg,none)).
 check_with_user2(F,G,Newname,Alg,Newname2):-
         nl,nl,
-        write('I have created a new concept definition which is a composition of
-'),nl,
+        write('I have created a new concept definition which is a composition of '),nl,
         write(F),write(' and '),write(G),nl,
         write('This concept is defined as follows:'),nl,
         write(Alg),nl,
         write('Do you want to keep this new concept (y/n)? '),
         nl,aminput('y'),
-        write('Please type new name for this concept or <CR> to keep the current
- name: '),
+        write('Please type new name for this concept or <CR> to keep the current name: '),
         nl,aminput(X),
         ((X='',Newname2=Newname);
          (\+ X='',Newname2=X)).

@@ -1,4 +1,4 @@
-:- public h123/1.
+:- public(h123/1).
 /**********************************************************************
  *
  * h123 finds examples of active concept Con by collecting examples

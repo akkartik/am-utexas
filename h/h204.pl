@@ -21,8 +21,7 @@
               put(coalesce,[examples,typ],N),
               put(C,[spec],N),
               put(C,[coalesce],N),
-              addtoagenda(fillin,N,[examples,typ],200,'No examples of concept ex
-ist').
+              addtoagenda(fillin,N,[examples,typ],200,'No examples of concept exist').
 
 h204assert(Name,Alg) :-
         Body =.. [Alg,X,X],

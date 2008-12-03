@@ -9,9 +9,10 @@
  * interesting if X.Conjecs contains some interesting entries"
  */
 h6(X) :-
-        collect([conjectures,interest],[X],Conjecs_lst).
-        h6_int_conjecs(Conjecs_lst,[],Int_conjs).
+        collect([conjectures,interest],[X],Conjecs_lst),
+        h6_int_conjecs(Conjecs_lst,[],Int_conjs),
         non_null_list(Int_conjs).
+/* akkartik: replaced periods with commas to respect indentation. */
 
 /* The following takes a list of conjectures and adds those
    that are interesting to the list Oj, yielding the list,

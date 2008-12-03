@@ -1,4 +1,4 @@
-:-public h180/1.
+:-public(h180/1).
 
 /* h180 finds examples of the composite operation f o g by using existing 
    examples of f and g. First the examples of f and g are gathered. Then a 

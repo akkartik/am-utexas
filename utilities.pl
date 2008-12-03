@@ -1,26 +1,21 @@
-%break% utilities.pl    526014807   409   20    100644  14107     `
-
-%contains old files: gutils,common(fnctions that were really common),newgut
-
-
-:-public split/2,null/1,not_null_list/1,consp/1,cons/3,split_last/3,
+:- public([
+         split/2,null/1,not_null_list/1,consp/1,cons/3,split_last/3,
          firstn/3,reverse/2,removeall/3,remove/3,
          remove_or_die/3,
          removelast/2,nth/3,wrlist/1,myinput/1,list/1,flatten/2,
          lastof/2,append/3,concat/3,replace/4,assoclist/3,union/3,
          setdiff/3,intersection/3,
-         makeset/2,merge/3,setmember/2.
+         makeset/2,merge/3,setmember/2,
 
-:-public member/2,seteq/2,delete/3,absval/2,mysetof/3,mybagof/3,
-         ucall/1,clock/2,gensym/2,myprint/2,pp/1,printstring/1,
-         printstrings/1,makename/3.
+         member/2,seteq/2,delete/3,absval/2,mysetof/3,mybagof/3,
+         /*ucall/1,*/clock/2,gensym/2,myprint/2,pp/1,printstring/1,
+         printstrings/1,makename/3,
 
-:- public collectclauses/3, makelist/2, if/2, if/3.
+         collectclauses/3, makelist/2, if/2, if/3,
 
-:- public explode/2,random/2,removedups/2,removetop/3,setdif/3,
-        apply/2,format/3,format/2,prompt_and_read/3,randomelement/2,
-        remove_random/2,randombreak/3,remove_nth/3.
-?-no_style_check(all).
+         explode/2,random/2,removedups/2,removetop/3,setdif/3,
+         apply/2,format/3,format/2,prompt_and_read/3,randomelement/2,
+         remove_random/2,randombreak/3,remove_nth/3]).
 
 split(X,X).
 
@@ -41,9 +36,9 @@ firstn(List,N,[]):- \+N>0.
 
 
 
-reverse(L,L1):- reverse_concat(L,[],L1).
-reverse_concat([X|L1],L2,L3):- reverse_concat(L1,[X|L2],L3).
-reverse_concat([],L,L).
+%? reverse(L,L1):- reverse_concat(L,[],L1).
+%? reverse_concat([X|L1],L2,L3):- reverse_concat(L1,[X|L2],L3).
+%? reverse_concat([],L,L).
 
 
 removeall(Set1,[],Set1).
@@ -60,9 +55,9 @@ remove_or_die(Member,List,Newlist) :- member(Member,List),
 removelast([X],[]).
 removelast([X|Y],[X|Z]) :- removelast(Y,Z).
 
-nth(L,P,V):- nth2(L,P,V,1).
-nth2([H|T],N,H,N).
-nth2([H|T],P,V,N):- \+P=N, N1 is N+1, nth2(T,P,V,N1).
+%? nth(L,P,V):- nth2(L,P,V,1).
+%? nth2([H|T],N,H,N).
+%? nth2([H|T],P,V,N):- \+P=N, N1 is N+1, nth2(T,P,V,N1).
 
 %length([],0).
 %length([X|Y],N) :- length(Y,N1), N is N1 + 1.
@@ -70,8 +65,8 @@ nth2([H|T],P,V,N):- \+P=N, N1 is N+1, nth2(T,P,V,N1).
 wrlist([]).
 wrlist([H|Rest]):- write('   '),write(H),nl,wrlist(Rest).
 
-list([]).
-list([_|_]).
+%? list([]).
+%? list([_|_]).
 
 flatten(Atom,Atom):- \+list(Atom).
 flatten(L,F):- list(L), flatten2(L,F),!.
@@ -90,8 +85,8 @@ myread2(Prev, More):- ttyget0(C), \+C=10, % 10 in quintus prolog
    myread2([C|Prev],More),!.
 myread2(A,A):- !.
  
-append([],L,L).
-append([A|B], L2, [A|L3]):- append(B,L2,L3).
+%? append([],L,L).
+%? append([A|B], L2, [A|L3]):- append(B,L2,L3).
 
 concat([X|L1],L2,[X|L3]):- concat(L1,L2,L3).
 concat([],L,L).
@@ -155,15 +150,15 @@ merge([H|T],L,L1):-merge(T,[H|L],L1).
 setmember(H,[H1|L]):-seteq(H,H1).
 setmember(H,[_|L]):-setmember(H,L).
 
-member(X,[X|T]).
-member(X,[_|T]):-member(X,T).
+%? member(X,[X|T]).
+%? member(X,[_|T]):-member(X,T).
 
 
 seteq([],[]).
 seteq([A|B],C):-delete(A,C,C1),seteq(B,C1).
 
-delete(A,[A|B],B).
-delete(A,[B|C],[B|C1]):-delete(A,C,C1).
+%? delete(A,[A|B],B).
+%? delete(A,[B|C],[B|C1]):-delete(A,C,C1).
 
 absval(N,N):- integer(N), \+N<0.
 absval(N,AbsN):- integer(N), N<0, AbsN is -1*N.
@@ -209,8 +204,8 @@ t(X) :- statistics(runtime,[_,X]).
 /***
 **** turn a list into a function call
 ***/
-:-op(100,fx,ucall).
-ucall(X) :- Z =.. X ,Z.
+%? :-op(100,fx,ucall).
+%? ucall(X) :- Z =.. X ,Z.
 
 /* Create a new atom starting with a root provided and 
  * finishing with a unique number.
@@ -288,19 +283,19 @@ makename(X,Y,N) :- name(X,X1),name(Y,Y1),append(X1,Y1,N1),
 
 
 
-/*** collectclauses forms a list of all clauses with a given mainfunctor.
-**** The only tricky part is forming a template which will match the
-**** head of each of the clauses (this to satisfy the 'clause' predicate).
-***/
-
-collectclauses(Mainfunctor,N,Clauses):- functemplate(Mainfunctor,N,Func),
-  bagof([Func,Body], clause(Func,Body), Clauses).
-functemplate(Mainfunctor,N,Func):- makelist(N,L), Func=..[Mainfunctor|L].
-
-/*** makelist(+N,-L) forms a list L of length N of uninstantiated variables. */
-
-makelist(0,[]).
-makelist(N,[_|L]):- N>0, N1 is N-1, makelist(N1,L).
+%? /*** collectclauses forms a list of all clauses with a given mainfunctor.
+%? **** The only tricky part is forming a template which will match the
+%? **** head of each of the clauses (this to satisfy the 'clause' predicate).
+%? ***/
+%? 
+%? collectclauses(Mainfunctor,N,Clauses):- functemplate(Mainfunctor,N,Func),
+%?   bagof([Func,Body], clause(Func,Body), Clauses).
+%? functemplate(Mainfunctor,N,Func):- makelist(N,L), Func=..[Mainfunctor|L].
+%? 
+%? /*** makelist(+N,-L) forms a list L of length N of uninstantiated variables. */
+%? 
+%? makelist(0,[]).
+%? makelist(N,[_|L]):- N>0, N1 is N-1, makelist(N1,L).
 
 
 
@@ -329,7 +324,7 @@ random(R,N) :-
         Newseed is (125 * S + 1) mod 4096,
         asserta(seed(Newseed)),!.
 
-:- dynamic seed/1.
+dynamic(seed/1).
 seed(13).
 
 /* remove duplicate entries from a list, maintaining original order */
@@ -475,8 +470,7 @@ machine readable */
 
 test(X) :-
   X1 is X + 1, X2 is X + 2, X3 is X + 3,
-  amformat([],'~a testing foo ~n bar ~s
-        baz ~a testing ~a', [X1, X2, X3]), nl,
+  amformat([],'~a testing foo ~n bar ~s baz ~a testing ~a', [X1, X2, X3]), nl,
   amformat(foo,'/* foo written ~n this is formatprint */ ~l ',[formatprint]),
   amformat(t,'~n /* this is test */ ~n  ~l ', [test]),
   told,

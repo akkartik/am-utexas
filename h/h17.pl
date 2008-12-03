@@ -5,9 +5,10 @@
 
 h17(Con) :-
         isas(Con, Con_set),
-        collect([conjectures,interest],Con_set,Conjecs_lst).
-        h17_int_conjecs(Conjecs_lst,[],Int_conjs).
+        collect([conjectures,interest],Con_set,Conjecs_lst),
+        h17_int_conjecs(Conjecs_lst,[],Int_conjs),
         non_null_list(Int_conjs).
+/* akkartik: replaced periods with commas to respect indentation. */
 
 /* The following takes a list of conjectures and adds those
    that are interesting to the list Oj, yielding the list,
