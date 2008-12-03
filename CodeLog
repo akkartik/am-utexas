@@ -1,0 +1,25 @@
+Importing Bruce Porter's AM version in prolog. Doesn't run in gprolog -
+perhaps we need to mess with modules.
+  http://www.coli.uni-saarland.de/~kris/learn-prolog-now/html/node104.html#subsec.l12.modules
+=-=1 - Sat Nov 29 09:30:06 PST 2008
+
+Now am.pl compiles. But what does abolish do?
+=-=2 - Sat Nov 29 10:40:30 PST 2008
+
+Getting the rest of the files to compile. One error remaining:
+  h92.pl:166:58: syntax error: current or previous operator needs brackets
+IMPORTANT: replaced commas with periods to respect indentation in 2 heuristics.
+
+Minor fixes:
+  disable definition: ucall/1.
+  disable duplicate definitions: collectclauses/3 in common and utilities, print_put_trace in common and am.
+  disable primitives: reverse, nth, list, append, member, delete, makelist.
+  rename duplicate private definition: loop_composit/8 in h407 -> loop_composit2.
+
+  update syntax for directives: abolish, public, dynamic.
+  amutilities -> multiple files.
+  explicitly consult files in am_init.
+  assert -> assertz.
+  remove no_style_check directives.
+  multiline -> single-line strings.
+=-=3 - Wed Dec  3 09:36:39 PST 2008
