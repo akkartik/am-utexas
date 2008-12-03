@@ -14,46 +14,43 @@ load_am_files :-
   fail.
 
 am :-
-   init_am, 
-   repeat,
-     am_loop,
-   fail.
+  init_am, 
+  repeat,
+    am_loop,
+  fail.
 
 init_am :- 
   load_am_files,
-        abolish(agenda/1),
-        abolish(time/1),
-        abolish(history/1),
-        abolish(do_threshold/1),
-        abolish(seed/1),
-        abolish(auto/1),
-        abolish(cycle/1),
-        assertz(cycle(1)),
-% unless am is broken you shouldn't need to reload the concepts every time
-%        abolish(frame/3),
-%        [concepts], 
-        assertz(auto(no)),
-        assertz(seed(13)),
-        assertz(time(0)),
-        assertz(history([])),
-        assertz(do_threshold(500)),
-        assertz(agenda([[fillin,set, [examples],310,[['some reason',10]]],
-                       [suggest,set,[examples],300,[['why not',10]]],
-                       [fillin,set, [genl],    300,[['whynot',10]]],
-                       [fillin,set, [spec],    300,[['reason',10]]],
-                       [check,set,  [examples],150,[[r1,10],[r2,50]]]])).
+  abolish(agenda/1),
+  abolish(time/1),
+  abolish(history/1),
+  abolish(do_threshold/1),
+  abolish(seed/1),
+  abolish(auto/1),
+  abolish(cycle/1),
+  assertz(cycle(1)),
+  assertz(auto(no)),
+  assertz(seed(13)),
+  assertz(time(0)),
+  assertz(history([])),
+  assertz(do_threshold(500)),
+  assertz(agenda([[fillin,set, [examples],310,[['some reason',10]]],
+                 [suggest,set,[examples],300,[['why not',10]]],
+                 [fillin,set, [genl],    300,[['whynot',10]]],
+                 [fillin,set, [spec],    300,[['reason',10]]],
+                 [check,set,  [examples],150,[[r1,10],[r2,50]]]])).
 
 
 am_loop:-
-   retract(cycle(Cycle)),NextCycle is Cycle + 1, assertz(cycle(NextCycle)),
-   amformat('~n---- Cycle ~a:  ', [Cycle]),
-   user_selects_task(Task),
-   Task = [Op,Con,Slot,Worth,_],
-   compute_time(Worth),
-   collect_heuristics(Con,Slot,Op,H),
-   amformat('~a ~a of ~a  ----------------~n',[Op,Slot,Con]),
-   execute_heuristics(Con,H),
-   !.
+  retract(cycle(Cycle)),NextCycle is Cycle + 1, assertz(cycle(NextCycle)),
+  amformat('~n---- Cycle ~a:  ', [Cycle]),
+  user_selects_task(Task),
+  Task = [Op,Con,Slot,Worth,_],
+  compute_time(Worth),
+  collect_heuristics(Con,Slot,Op,H),
+  amformat('~a ~a of ~a  ----------------~n',[Op,Slot,Con]),
+  execute_heuristics(Con,H),
+  !.
 
 user_selects_task(Task) :- 
 %       present_choices,
@@ -75,10 +72,10 @@ present_choice1 :- best_worth(W),do_threshold(Thresh),
     amformat('a = agenda display, p = concept printing, b = break. ~n', []).
         
 present_choice1 :-
-        printstring("hit return to select top task,"),
-        printstring(" # = task #,q = quit, x = extensions "),nl,
-    amformat('n = new threshold,i = input task,  q = quit,~n',[]),
-    amformat('a = agenda display, p = concept printing, b = break. ~n', []).
+  printstring("hit return to select top task,"),
+  printstring(" # = task #,q = quit, x = extensions "),nl,
+  amformat('n = new threshold,i = input task,  q = quit,~n',[]),
+  amformat('a = agenda display, p = concept printing, b = break. ~n', []).
 
 
 
@@ -160,10 +157,3 @@ execute_heuristics(_,[]).
 
 apply_heuristic(H,A):- apply(H,A), !.
 apply_heuristic(_,_).
-
-%? % This really goes in amutilities.pl but it must be interpreted so it's here
-%? print_put_trace(C,S,V):-
-%?    ancestors([G|_]), % find out who's calling put/3,
-%?    G=..[H|_],
-%?    write(['   Adding',V,to,the,S,slot,of,C]), nl, % show change,
-%?    !, fail.
