@@ -1,4 +1,4 @@
-:- public([am/0]).
+:- public([am/0, load_am_files/0]).
 
 load_am_files :-
   [common],
@@ -20,7 +20,6 @@ am :-
   fail.
 
 init_am :- 
-  load_am_files,
   abolish(agenda/1),
   abolish(time/1),
   abolish(history/1),

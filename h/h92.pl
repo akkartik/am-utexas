@@ -163,7 +163,7 @@ removecond2(Cond,(X,Y),Z):- \+X=Cond, \+Y=Cond,
 ***/
 
 conditionof(Cond,Clause):- Clause=[_,Body], conditionof2(Cond,Body).
-conditionof2(Cond,Cond):- \+Cond=true, Cond=..[F|_], \+F=',', \+F=';'.
+conditionof2(Cond,Cond):- \+Cond=true, Cond=..[F|_], \+F=(','), \+F=(';').
 conditionof2(Cond,(X,Y)):- conditionof2(Cond,X).
 conditionof2(Cond,(X,Y)):- conditionof2(Cond,Y).
 
