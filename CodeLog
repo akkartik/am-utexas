@@ -32,3 +32,10 @@ Don't want to save those until I figure out what I'm doing.
 make those procedures dynamic right at the start. Now is it hung or just
 processing for a long time?
 =-=7 - Thu Dec 11 12:23:44 PST 2008
+No, I need to call:
+  [am].
+  load_am_files.
+  [am].
+  am.
+for it to work/hang.
+=-=8 - Thu Dec 11 12:28:39 PST 2008
