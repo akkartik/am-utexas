@@ -28,3 +28,7 @@ Ok, it compiles now, though I need to call load_am_files separately before am.
 am dies within various abolish calls that I can comment out to get it to run.
 Don't want to save those until I figure out what I'm doing.
 =-=6 - Thu Dec  4 18:43:24 PST 2008
+
+make those procedures dynamic right at the start. Now is it hung or just
+processing for a long time?
+=-=7 - Thu Dec 11 12:23:44 PST 2008

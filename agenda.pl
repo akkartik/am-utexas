@@ -18,7 +18,6 @@ best_worth(Worth) :- agenda([[_,_,_,Worth,_]|_]).
 /* do_threshold returns the lowest acceptable value for an
  * executable task.
  */
-
 do_threshold(500).
 
 /* addtohistory adds a task to the 5 task history stack which is kept by

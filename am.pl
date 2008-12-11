@@ -13,6 +13,9 @@ load_am_files :-
   consult(Hfile),
   fail.
 
+:-dynamic(seed/1).
+:-dynamic(do_threshold/1).
+
 am :-
   init_am, 
   repeat,
@@ -135,8 +138,8 @@ execute_heuristics(_,_) :- time(T),
         T < 0.
 execute_heuristics(Con,[H|R]) :- 
         ((descr(H,Msg,_),
-           format('~a:~t~8|~a~n',[H,Msg]),ttyflush) ;
-         (format('~a:~t~8|~n',[H]), ttyflush)),
+           format('~a: ~a~n',[H,Msg]),flush_output) ;
+         (format('~a: ~n',[H]), flush_output)),
         clock(Start,_),
         apply_heuristic(H,[Con]),
         clock(Start,Elapsed_time),
