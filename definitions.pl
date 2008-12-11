@@ -6,6 +6,9 @@
 	5. Replace all occurrences of "]" with "."
    and presto! all your defn's are dynamic.   -Todd  */
 
+:-dynamic(seed/1).
+:-dynamic(do_threshold/1).
+
 :- dynamic(basecase/0).
 :- dynamic(notmember/2).
 :- dynamic(myvar/1).

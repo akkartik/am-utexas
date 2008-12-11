@@ -13,10 +13,8 @@ load_am_files :-
   consult(Hfile),
   fail.
 
-:-dynamic(seed/1).
-:-dynamic(do_threshold/1).
-
 am :-
+  load_am_files;
   init_am, 
   repeat,
     am_loop,
