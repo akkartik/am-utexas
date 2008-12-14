@@ -5,6 +5,6 @@ merge and increase the value of the highest value to begin with*/
 */
 
 
-h114(C):- assert(counter(0)),h114_it(C,C,0,[]).
+h114(C):- assertz(counter(0)),h114_it(C,C,0,[]).
 
 

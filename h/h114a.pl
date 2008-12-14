@@ -3,7 +3,7 @@ h114a(C):-h114_ita(C,C,0,[]).
 h114_it(Present_C,C,Counter,CTrail):-
          Counter < 100,
          retract(counter(_)),
-         assert(counter(Counter)),
+         assertz(counter(Counter)),
          get(Present_C,[genl],Value),!,
          notmember(C,Value),!,
          first_element_defn(Value,FirstElement),
@@ -19,7 +19,7 @@ h114_it(Present_C,C,Counter,CTrail):-
 h114_ita(Present_C,C,Counter,CTrail):-
          Counter < 100,
          retract(counter(_)),
-         assert(counter(Counter)),
+         assertz(counter(Counter)),
          get(Present_C,[spec],Value),!,
          notmember(C,Value),!,
          first_element_defn(Value,FirstElement),
@@ -36,7 +36,7 @@ rid_ex_cons(C,Ctrail):-
          merge_cons(C,Ctrail),
          retract(C,[worth],[Worth2]),
          Worth3 is Worth2 + Worth2/2,
-         assert(C,[worth],[Worth3]).
+         assertz(C,[worth],[Worth3]).
 
 merge_cons(C,[]).
 
@@ -48,7 +48,7 @@ merge_cons(C,[C2|Ctrail]):-
 merge_cons(C,[C2|Ctrail]):-
          get(C2,X,Y),
          not(get(C,X,Y)),
-         assert(frame(C,X,Y)),
+         assertz(frame(C,X,Y)),
          retract(frame(C2,X,Y)),
          merge_cons(C,Ctrail).
          

@@ -46,7 +46,7 @@ h409(C):-
 	 reverse(List,Rlist),
          Pred3 =.. [Nname|Rlist],
  	 Alg2 = (Pred3:-Pred2,not(Range = D2)),
-	 assert(Alg2));true),
+	 assertz(Alg2));true),
 	asserta(Alg),nl,write(Alg),nl,write(Alg2),nl.
 
 

@@ -90,7 +90,7 @@ put_in_hierarchy(Con,Newcon) :-
 ***/
 
 check_with_user(Concept,_,X,Y,X,Y):-
-   assert(gensymed_concepts(Concept)),  !.
+   assertz(gensymed_concepts(Concept)),  !.
 check_with_user(Concept,Relation,NewConcept,NewClauses,NewConceptName,NewClauses2):- 
   nl,nl,
   write(' I have created a concept definition which is a '), write(Relation),
@@ -168,7 +168,7 @@ conditionof2(Cond,(X,Y)):- conditionof2(Cond,X).
 conditionof2(Cond,(X,Y)):- conditionof2(Cond,Y).
 
 /*** assertset does the inverse of collectclauses: given a list of
-**** clauses, assert each clause to the database. Note that assertz
+**** clauses, assertz each clause to the database. Note that assertz
 **** is used to maintain order of the clauses.
 ***/
 

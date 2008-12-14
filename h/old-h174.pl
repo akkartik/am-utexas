@@ -62,7 +62,7 @@ make_composite_alg(F,G,FoGdr,Newname2,Alg):-
         check_with_user2(F,G,Newname,Alg,Newname2),
         Func4=..[Newname2|Newdr],
         Alg2=(Func4:-Func1,Func2),
-        assert(Alg2).
+        assertz(Alg2).
 
 /* create_composite_concept creates a concept frame for the new operation.
    Then a task is added to the agenda to generate examples of the new

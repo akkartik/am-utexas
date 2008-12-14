@@ -14,7 +14,7 @@ h402(C):-
         N > 5, N < 30,
         (retract(frame(C,[worth],[Worth]));Worth = 100),
         Worth2 is Worth + (Worth + 1)/5,
-        assert(frame(C,[worth],[Worth2])).
+        assertz(frame(C,[worth],[Worth2])).
 
 h402(C):- 
 	(exs(C,Examples);get(C,[examples,typ],Examples)),
@@ -22,7 +22,7 @@ h402(C):-
         N < 5,
         (retract(frame(C,[worth],[Worth]));Worth = 1),
         Worth2 is Worth/2,
-        assert(frame(C,[worth],[Worth2])).
+        assertz(frame(C,[worth],[Worth2])).
 
 
 
@@ -32,7 +32,7 @@ h402(C):-
         N > 40,
         (retract(frame(C,[worth],[Worth])); Worth = 1),
         Worth2 is Worth/2,
-        assert(frame(C,[worth],[Worth2])).
+        assertz(frame(C,[worth],[Worth2])).
 
 
 
@@ -44,13 +44,13 @@ repetitive application of a concept and it might not. -marcos */
 h407(F):- 
 	get(F,[worth],[Worth]),
         Worth > 200,
-        assert(flag),
+        assertz(flag),
         getarity(F,N1), N is N1 -1,
         loop_composit(F,F,N,[],Glist,[],FoGdr,1),
         makename(F,'_o_',Temp),
         loopmakename(Temp,Glist,SeedName),
         loop_make_composit(F,SeedName,Glist,FoGdr,Newname,Algorogo,N,0),!,
-        assert(flag),
+        assertz(flag),
         create_composite_concept2(F,Glist,Newname,Algorogo,FoGdr).        
 
 loop_composit(F,G,N,X,X,Y,Y,_):-
@@ -94,7 +94,7 @@ create_composite_concept(F,Conceptname,Alg,Dom_range):-
         put(Conceptname,[name],Conceptname),
         put(Conceptname,[defn,name],Conceptname),
         put(Conceptname,[alg],Conceptname),
-        assert(frame(Conceptname,[dom_range],Dom_range)),
+        assertz(frame(Conceptname,[dom_range],Dom_range)),
         put(Conceptname,[genl],F),
         get(F,[worth],[W1]),
         put(Conceptname,[worth],W1),
@@ -122,9 +122,9 @@ makeit(D,N,Worth,Alg,Name):-
         C0 = (Pred2:- CP1,Count1 > Count, retract(CP2)),
 	C1 = (Pred4:- Pred1, (retract(CP1);
 	                      Count1 = 0), Count2 is Count1 + 1, 
-			      assert(CP2),
+			      assertz(CP2),
 	                      Pred3),
-        assert(C1),
+        assertz(C1),
 	asserta(C0),nl, write(C0),nl, write(C1),nl,Alg=[C0,C1].
 
 
@@ -209,7 +209,7 @@ h409(C):-
 	 reverse(List,Rlist),
          Pred3 =.. [Nname|Rlist],
  	 Alg2 = (Pred3:-Pred2,not(Range = D2)),
-	 assert(Alg2));true),
+	 assertz(Alg2));true),
 	asserta(Alg),nl,write(Alg),nl,write(Alg2),nl.
 
 
@@ -223,7 +223,7 @@ not(X).
 
 check_with_user(Concept,Relation,NewConcept,NewClauses,NewConceptName,NewClauses2):- not(if_Flag),
 	matchtoname(NewClauses,Cname),
-	assert(gensymed_concepts(Concept,NewConcept,Relation,Cname)),
+	assertz(gensymed_concepts(Concept,NewConcept,Relation,Cname)),
 	NewClauses2 = NewClauses, NewConcept = NewConceptname.
 matchtoname([[C|T]],C).
 
@@ -246,7 +246,7 @@ check_with_user(Concept,Relation,NewConcept,NewClauses,NewConceptName,NewClauses
    !.
 
 
-run_I_face:- assert(if_Flag),
+run_I_face:- assertz(if_Flag),
 	gensymed_concepts(Concept,NewConcept,Relation,OldName),
 	check_with_user(Concept,Relation,NewConcept,NewClauses,NewConceptname,
 	NewClauses2),
@@ -269,10 +269,10 @@ inc_tasks(C,Nc,A,W,O,P):-
 	split(A,[[L,C,L2,W1,L3]|Tail]),
 	W2 is W1 + W,
 	inc_tasks(C,Tail,W,[[L,Nc,L2,W2,L4]|O],P),
-	assert(agenda(P)).
+	assertz(agenda(P)).
 	
 /*check_with_user(Concept,Relation,NewConcept,NewClauses,NewConceptName,NewClauses2):- 
-      assert(gensymed_concepts(Concept,NewClauses,Relation)), 
+      assertz(gensymed_concepts(Concept,NewClauses,Relation)), 
 	NewClauses2 = NewClauses.
 
 */
@@ -280,13 +280,13 @@ inc_tasks(C,Nc,A,W,O,P):-
 /*If C1 is a genl of C2 if C2 is a fenl of C3 ... if Ck is a genl of Cn then
 merge and increase the value of the highest value to begin with*/
 
-h114(C):- assert(counter(0)),h114_it(C,C,0,[]).
+h114(C):- assertz(counter(0)),h114_it(C,C,0,[]).
 h114a(C):-h114_ita(C,C,0,[]).
 
 h114_it(Present_C,C,Counter,CTrail):-
          Counter < 100,
          retract(counter(_)),
-         assert(counter(Counter)),
+         assertz(counter(Counter)),
          get(Present_C,[genl],Value),!,
          notmember(C,Value),!,
          first_element_defn(Value,FirstElement),
@@ -302,7 +302,7 @@ h114_it(Present_C,C,Counter,CTrail):-
 h114_ita(Present_C,C,Counter,CTrail):-
          Counter < 100,
          retract(counter(_)),
-         assert(counter(Counter)),
+         assertz(counter(Counter)),
          get(Present_C,[spec],Value),!,
          notmember(C,Value),!,
          first_element_defn(Value,FirstElement),
@@ -319,7 +319,7 @@ rid_ex_cons(C,Ctrail):-
          merge_cons(C,Ctrail),
          retract(C,[worth],[Worth2]),
          Worth3 is Worth2 + Worth2/2,
-         assert(C,[worth],[Worth3]).
+         assertz(C,[worth],[Worth3]).
 
 merge_cons(C,[]).
 
@@ -331,7 +331,7 @@ merge_cons(C,[C2|Ctrail]):-
 merge_cons(C,[C2|Ctrail]):-
          get(C2,X,Y),
          not(get(C,X,Y)),
-         assert(frame(C,X,Y)),
+         assertz(frame(C,X,Y)),
          retract(frame(C2,X,Y)),
          merge_cons(C,Ctrail).
          
@@ -360,7 +360,7 @@ h36_limited(C,Counter):-
    Defn2,
    retract(C,[examples,typ],V2),
    append(V2,F,V3),
-   assert(C,[examples,typ],V3).
+   assertz(C,[examples,typ],V3).
 
 
 frame(gob1,[genl],[gob2,gob3]).

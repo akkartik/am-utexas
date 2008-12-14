@@ -198,9 +198,9 @@ get(_,_,[]).
 %to put a single element onto a slot
 
 % the first clause catches all changes to the concept base and displays them.
-put(C,S,V):-
-   watch_mode_on,				% if you want a trace,
-   print_put_trace(C,S,V).  % ! This will fail and backtrack to the real put/3.
+%? put(C,S,V):-
+%?    watch_mode_on,				% if you want a trace,
+%?    print_put_trace(C,S,V).  % ! This will fail and backtrack to the real put/3.
 put(C,S,V) :- put1(C,S,V),!.
 
 /*  This stuff is duplicated in am.pl so it will be interpreted because it

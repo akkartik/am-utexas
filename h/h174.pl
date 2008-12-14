@@ -58,13 +58,13 @@ h174(F,G):-
    
 
 h174(F,G):-
-        assert(flag),
+        assertz(flag),
         getarity(F,N1), N is N1 -1,
         loop_composit(F,G,N,[],Glist,[],FoGdr,1),
         makename(F,'_o_',Temp),
         loopmakename(Temp,Glist,SeedName),
         loop_make_composit(F,SeedName,Glist,FoGdr,Newname,Algorogo,N,0),!,
-        assert(flag),
+        assertz(flag),
         create_composite_concept2(F,Glist,Newname,Algorogo,FoGdr).        
         
 
@@ -82,7 +82,7 @@ loop_make_composit(F,Topname,[],[],Newname2,Alg2,Arity,Q):-
         Pred2 =.. [Topname|List],
         Alg = (Pred2:-Pred1),
 write(Alg),
-        assert(Alg).
+        assertz(Alg).
 	
 loop_make_composit(F,Topname,[G|Glist],[FoGdr|FoGdrlist],Newname2,Alg2,Arity,Q):-
         length(FoGdr,N),
@@ -109,11 +109,11 @@ loop_make_composit(F,Topname,[G|Glist],[FoGdr|FoGdrlist],Newname2,Alg2,Arity,Q):
 write(Alg),
         (/*flag,*/fail,
         check_with_user2(F,G,Topname,Alg,Newname2),
-        assert(newname(Newname2));
+        assertz(newname(Newname2));
         Newname2 = Topname),
         Func4=..[Newname2|Newdr],
         Alg2=(Func4:-Func1,Func2),
-        assert(Alg2),
+        assertz(Alg2),
         (retract(flag); true),
         Arity2 is Arity - 1,
         Q2 is Q + 1,
@@ -196,7 +196,7 @@ write(Alg),
         check_with_user2(F,G,Newname,Alg,Newname2),
         Func4=..[Newname2|Newdr],
         Alg2=(Func4:-Func1,Func2),
-        assert(Alg2).
+        assertz(Alg2).
 
 /* create_composite_concept creates a concept frame for the new operation.
    Then a task is added to the agenda to generate examples of the new
@@ -260,7 +260,7 @@ putlist(Conceptname,FS,[G|Glist]):-
    */
 /* taking this unnecessary gabbing out! -marcos*/
 check_with_user2(F,G,Newname,Alg,Newname2):-
-	      assert(gensymed_concepts(Newname,Alg,none)).
+	      assertz(gensymed_concepts(Newname,Alg,none)).
 check_with_user2(F,G,Newname,Alg,Newname2):-
         nl,nl,
         write('I have created a new concept definition which is a composition of '),nl,

@@ -28,7 +28,7 @@ create_composite_concept(F,Conceptname,Alg,Dom_range):-
         put(Conceptname,[name],Conceptname),
         put(Conceptname,[defn,name],Conceptname),
         put(Conceptname,[alg],Conceptname),
-        assert(frame(Conceptname,[dom_range],Dom_range)),
+        assertz(frame(Conceptname,[dom_range],Dom_range)),
         put(Conceptname,[genl],F),
         get(F,[worth],[W1]),
         put(Conceptname,[worth],W1),
@@ -56,9 +56,9 @@ makeit(D,N,Worth,Alg,Name):-
         C0 = (Pred2:- CP1,Count1 > Count, retract(CP2)),
 	C1 = (Pred4:- Pred1, (retract(CP1);
 	                      Count1 = 0), Count2 is Count1 + 1, 
-			      assert(CP2),
+			      assertz(CP2),
 	                      Pred3),
-        assert(C1),
+        assertz(C1),
 	asserta(C0),nl, write(C0),nl, write(C1),nl,Alg=[C0,C1].
 
 

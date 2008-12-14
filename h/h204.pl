@@ -26,7 +26,7 @@
 h204assert(Name,Alg) :-
         Body =.. [Alg,X,X],
         Head =.. [Name,X],
-        assert((Head :- Body)).
+        assertz((Head :- Body)).
 
    h204_worth(N,C) :- get(C,[coalesce],[]),
                       get(C,[worth],W),

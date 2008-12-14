@@ -8,13 +8,13 @@ repetitive application of a concept and it might not. -marcos */
 h407(F):- 
 	get(F,[worth],[Worth]),
         Worth > 200,
-        assert(flag),
+        assertz(flag),
         getarity(F,N1), N is N1 -1,
         loop_composit2(F,F,N,[],Glist,[],FoGdr,1),
         makename(F,'_o_',Temp),
         loopmakename(Temp,Glist,SeedName),
         loop_make_composit(F,SeedName,Glist,FoGdr,Newname,Algorogo,N,0),!,
-        assert(flag),
+        assertz(flag),
         create_composite_concept2(F,Glist,Newname,Algorogo,FoGdr).        
 
 loop_composit2(F,G,N,X,X,Y,Y,_):-
